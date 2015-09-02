@@ -48,6 +48,26 @@ public class BookTest {
     assertTrue(Book.all().get(0).getGenre().equals(genre));
   }
 
+  @Test
+  public void getAuthors_returnsAllAuthors_List() {
+    Author myAuthor = new Author("Tolstoy");
+    myAuthor.save();
+    assertTrue(myAuthor.equals(Author.all().get(0)));
+  }
+
+  @Test
+  public void delete_deletesBookAndListAssociations() {
+    Book myBook = new Book("War and Peace", "Drama");
+    myBook.save();
+
+    Author myAuthor = new Author("Tolstoy");
+    myAuthor.save();
+
+    myAuthor.addBook(myBook);
+    myBook.delete();
+    assertEquals(myBook.getAuthors().size(), 0);
+  }
+
 
 
 

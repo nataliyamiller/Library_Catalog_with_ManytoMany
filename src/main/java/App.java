@@ -18,7 +18,20 @@ import java.util.Set;
       return new ModelAndView(model, layout);
     }, new VelocityTemplateEngine());
 
-    
+    get("/adminhome", (request, response) -> {
+      HashMap<String, Object> model = new HashMap<String, Object>();
+
+      model.put("template", "templates/admin.vtl");
+      return new ModelAndView(model, layout);
+    }, new VelocityTemplateEngine());
+
+    get("/add-book", (request, response) -> {
+      HashMap<String, Object> model = new HashMap<String, Object>();
+      model.put("template", "templates/newbook.vtl");
+      return new ModelAndView(model, layout);  
+    }, new VelocityTemplateEngine());
+
+
   }//end of main
 
 }//end of app
