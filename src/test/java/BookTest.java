@@ -29,6 +29,28 @@ public class BookTest {
     assertTrue(Book.all().get(0).equals(newBook));
   }
 
+  @Test
+  public void find_findsBookInDatabase_true() {
+    Book myBook = new Book("War and Peace", "Genre");
+    myBook.save();
+    Book savedBook = Book.find(myBook.getId());
+    assertTrue(myBook.equals(savedBook));
+  }
+
+  @Test
+  public void update_updatesBookTitleAndGenreInDatabase_true() {
+    Book myBook = new Book("War and Peace", "Drama");
+    myBook.save();
+    String title = "Day";
+    String genre = "Comedy";
+    myBook.update(title, genre);
+    assertTrue(Book.all().get(0).getTitle().equals(title));
+    assertTrue(Book.all().get(0).getGenre().equals(genre));
+  }
+
+
+
+
 
 
 

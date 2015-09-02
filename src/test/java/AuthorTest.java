@@ -29,5 +29,60 @@ public class AuthorTest {
        assertTrue(Author.all().get(0).equals(newAuthor));
      }
 
+     @Test
+     public void find_findsAuthorInDatabase_true() {
+       Author myAuthor = new Author("Tolstoy");
+       myAuthor.save();
+       Author savedAuthor = Author.find(myAuthor.getId());
+       assertTrue(myAuthor.equals(savedAuthor));
+     }
+
+     @Test
+     public void update_changesAuthorNameAndEnrollmentInDatabase_true() {
+       Author myAuthor = new Author ("Tolstoy");
+       myAuthor.save();
+       String name = "Doestoevsky";
+       myAuthor.update(name);
+       assertTrue(Author.all().get(0).getName().equals(name));
+     }
+
+     @Test
+     public void addBook_addsBookToAuthor() {
+       Book myBook = new Book ("War and Peace", "classic");
+       myBook.save();
+
+       Author myAuthor = new Author("Tolstoy");
+       myAuthor.save();
+
+       myAuthor.addBook(myBook);
+       Book savedBook = myAuthor.getBooks().get(0);
+       assertTrue(myBook.equals(savedBook));
+     }
+
+     @Test
+     public void getAuthors_returnsAllBooks_ArrayList() {
+       Book myBook = new Book ("War and Peace", "classic");
+       myBook.save();
+
+       Author myAuthor = new Author("Tolstoy");
+       myAuthor.save();
+
+       myAuthor.addBook(myBook);
+       List savedBooks = myAuthor.getBooks();
+       assertEquals(savedBooks.size(), 1);
+     }
+
+     @Test
+     public void delete_deletesAllAuthorsAndListAssociation () {
+       Book myBook = new Book ("War and Peace", "classic");
+       myBook.save();
+
+       Author myAuthor = new Author("Tolstoy");
+       myAuthor.save();
+
+       myAuthor.addBook(myBook);
+       myAuthor.delete();
+       assertEquals(myBook.getAuthors().size(), 0);
+     }
 
  }//end AuthorTest class

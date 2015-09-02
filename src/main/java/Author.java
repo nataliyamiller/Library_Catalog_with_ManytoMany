@@ -45,4 +45,68 @@ public class Author {
     }
   }
 
-}//ends class Student
+  public static Author find(int id) {
+      try(Connection con = DB.sql2o.open()) {
+        String sql = "SELECT * FROM authors WHERE id=:id";
+        Author author = con.createQuery(sql)
+          .addParameter("id", id)
+          .executeAndFetchFirst(Author.class);
+        return author;
+      }
+    }
+
+    public void update(String name) {
+      this.name = name;
+        try(Connection con = DB.sql2o.open()) {
+          String sql = "UPDATE authors SET name=:name WHERE id=:id";
+          con.createQuery(sql)
+            .addParameter("name", name)
+            .addParameter("id", id) //why do we need the id here but not in others?
+            .executeUpdate();
+        }
+    }
+
+    public void addBook(Book book) {
+      try(Connection con = DB.sql2o.open()) {
+        String sql = "INSERT INTO books_authors (author_id, book_id) VALUES (:author_id, :book_id)";
+        con.createQuery(sql)
+          .addParameter("book_id", book.getId())
+          .addParameter("author_id", this.getId())
+          .executeUpdate();
+      }
+    }
+
+    public ArrayList<Book> getBooks() {
+    try(Connection con = DB.sql2o.open()) {
+      String sql = "SELECT book_id FROM books_authors WHERE author_id =:author_id";
+      List<Integer> bookIds = con.createQuery(sql)
+        .addParameter("author_id", this.getId())
+        .executeAndFetch(Integer.class);
+
+        ArrayList<Book> books = new ArrayList<Book>();
+
+      for(Integer index : bookIds) {
+        String bookQuery = "SELECT * FROM books WHERE id=:index";
+        Book book = con.createQuery(bookQuery)
+          .addParameter("index", index)
+          .executeAndFetchFirst(Book.class);
+        books.add(book);
+      }return books;
+    }
+  }
+    public void delete() {
+    try(Connection con = DB.sql2o.open()) {
+      String deleteQuery = "DELETE FROM authors WHERE id=:id";
+      con.createQuery(deleteQuery)
+      .addParameter("id", id)
+      .executeUpdate();
+
+      String joinDeleteQuery = "DELETE from books_authors WHERE author_id =:author_id";
+      con.createQuery(joinDeleteQuery)
+        .addParameter("author_id", this.getId())
+        .executeUpdate();
+    }
+  }
+
+
+}//ends class Author
