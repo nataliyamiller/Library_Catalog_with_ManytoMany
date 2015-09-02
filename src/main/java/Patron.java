@@ -39,7 +39,7 @@ import java.util.ArrayList;
 
     public void save() {
       try(Connection con = DB.sql2o.open()) {
-        String sql ="INSERT INTO patrons (patron_name, due_date) values (:patron_name)";
+        String sql ="INSERT INTO patrons (patron_name) values (:patron_name)";
         this.id = (int) con.createQuery(sql, true)
           .addParameter("patron_name", this.patron_name)
           .executeUpdate()
@@ -71,9 +71,9 @@ import java.util.ArrayList;
 
     public void addBook(Book book, String duedate) { //comes from html page
       try(Connection con = DB.sql2o.open()) {
-        String sql = "INSERT INTO checkouts (patron_id, book_id, duedate) VALUES (:course_id, :student_id, :duedate)";
+        String sql = "INSERT INTO checkouts (patron_id, book_id, duedate) VALUES (:patron_id, :book_id, :duedate)";
         con.createQuery(sql)
-          .addParameter("patron_id", this.getId())
+          .addParameter("patron_id", id)
           .addParameter("book_id", book.getId())
           .addParameter("duedate", duedate)
           .executeUpdate();
