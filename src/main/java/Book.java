@@ -7,6 +7,7 @@ public class Book {
   private int id;
   private String title;
   public String genre;
+  private int copies;
 
   public int getId() {
     return id;
@@ -20,9 +21,14 @@ public class Book {
     return genre;
   }
 
-  public Book(String title, String genre) {
+  public int getCopies() {
+    return copies;
+  }
+
+  public Book(String title, String genre, int copies) {
     this.title = title;
     this.genre = genre;
+    this.copies = copies;
   }
 
   @Override
@@ -32,12 +38,13 @@ public class Book {
     } else {
       Book newBook = (Book) otherBook;
       return this.getTitle().equals(newBook.getTitle()) &&
-      this.getGenre().equals(newBook.getGenre());
+      this.getGenre().equals(newBook.getGenre()) &&
+      this.getCopies() == newBook.getCopies();
     }
   }
 
   public static List<Book> all() {
-    String sql = "SELECT id, title, genre FROM books";
+    String sql = "SELECT id, title, genre, copies FROM books";
     try(Connection con = DB.sql2o.open()) {
       return con.createQuery(sql).executeAndFetch(Book.class);
     }
@@ -45,10 +52,11 @@ public class Book {
 
   public void save() {
     try(Connection con = DB.sql2o.open()) {
-      String sql = "INSERT INTO books (title, genre) VALUES (:title, :genre)";
+      String sql = "INSERT INTO books (title, genre, copies) VALUES (:title, :genre, :copies)";
       this.id = (int) con.createQuery(sql, true)
         .addParameter("title", title)
         .addParameter("genre", genre)
+        .addParameter("copies", copies)
         .executeUpdate()
         .getKey();
     }
@@ -64,14 +72,16 @@ public class Book {
     }
   }
 
-  public void update(String title, String genre) {
+  public void update(String title, String genre, int copies) {
   this.title = title;
   this.genre = genre;
+  this.copies = copies;
   try(Connection con = DB.sql2o.open()){
-    String sql = "UPDATE books SET title=:title, genre=:genre WHERE id=:id";
+    String sql = "UPDATE books SET title=:title, genre=:genre, copies=:copies WHERE id=:id";
     con.createQuery(sql) //course_name is not this.course_name due to parameters?
       .addParameter("title", title)
       .addParameter("genre", genre)
+      .addParameter("copies", copies)
       .addParameter("id", id)
       .executeUpdate();
   }

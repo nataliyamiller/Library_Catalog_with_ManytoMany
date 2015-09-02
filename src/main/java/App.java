@@ -35,8 +35,9 @@ import java.util.Set;
       HashMap<String, Object> model = new HashMap<String, Object>();
       String title = request.queryParams("title");
       String genre = request.queryParams("genre");
+      int copies = Integer.parseInt(request.queryParams("copies"));
 
-      Book newBook = new Book(title, genre);
+      Book newBook = new Book(title, genre, copies);
       newBook.save();
 
       model.put("template", "templates/newbook.vtl");

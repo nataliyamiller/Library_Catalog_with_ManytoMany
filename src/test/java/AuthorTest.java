@@ -48,7 +48,7 @@ public class AuthorTest {
 
      @Test
      public void addBook_addsBookToAuthor() {
-       Book myBook = new Book ("War and Peace", "classic");
+       Book myBook = new Book ("War and Peace", "classic", 1);
        myBook.save();
 
        Author myAuthor = new Author("Tolstoy");
@@ -61,7 +61,7 @@ public class AuthorTest {
 
      @Test
      public void getAuthors_returnsAllBooks_ArrayList() {
-       Book myBook = new Book ("War and Peace", "classic");
+       Book myBook = new Book ("War and Peace", "classic", 1);
        myBook.save();
 
        Author myAuthor = new Author("Tolstoy");
@@ -74,7 +74,7 @@ public class AuthorTest {
 
      @Test
      public void delete_deletesAllAuthorsAndListAssociation () {
-       Book myBook = new Book ("War and Peace", "classic");
+       Book myBook = new Book ("War and Peace", "classic", 1);
        myBook.save();
 
        Author myAuthor = new Author("Tolstoy");
