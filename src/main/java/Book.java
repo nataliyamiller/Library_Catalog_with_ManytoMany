@@ -93,7 +93,7 @@ public ArrayList<Author> getAuthors() {
   try(Connection con = DB.sql2o.open()) {
     String sql = "SELECT author_id FROM books_authors WHERE book_id=:book_id";
     List<Integer> authorIds = con.createQuery(sql)
-    .addParameter("course_id", this.getId())
+    .addParameter("book_id", this.getId())
     .executeAndFetch(Integer.class);
 
     //declare empty array to push all students ids that match to the courseid

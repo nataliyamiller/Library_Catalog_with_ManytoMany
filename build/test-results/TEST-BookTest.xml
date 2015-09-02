@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuite name="BookTest" tests="5" skipped="0" failures="0" errors="0" timestamp="2015-09-02T18:34:27" hostname="epicodus-115.local" time="0.064">
+<testsuite name="BookTest" tests="5" skipped="0" failures="0" errors="0" timestamp="2015-09-02T18:37:37" hostname="epicodus-115.local" time="0.064">
   <properties/>
   <testcase name="all_emptyAtFirst" classname="BookTest" time="0.009"/>
-  <testcase name="update_updatesBookTitleAndGenreInDatabase_true" classname="BookTest" time="0.021"/>
+  <testcase name="update_updatesBookTitleAndGenreInDatabase_true" classname="BookTest" time="0.02"/>
   <testcase name="equals_returnsTrueIfBooksAreTheSame" classname="BookTest" time="0.005"/>
   <testcase name="save_savesIntoDatabase_true" classname="BookTest" time="0.014"/>
-  <testcase name="find_findsBookInDatabase_true" classname="BookTest" time="0.013"/>
+  <testcase name="find_findsBookInDatabase_true" classname="BookTest" time="0.014"/>
   <system-out><![CDATA[]]></system-out>
   <system-err><![CDATA[]]></system-err>
 </testsuite>
