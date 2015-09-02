@@ -1,1 +1,27 @@
-<h2>All Courses</h2>
+<div class="container">
+  <div class="row">
+  <h1><center>Administrator: Library Catalog</center></h1>
+  <h2>Search Authors</h2>
+
+
+    <table border="1" class="table table-striped">
+      <th>Name</th>
+      <th>Books</th>
+
+      <tbody>
+        #foreach($author in $authors) <!--authors calls author.all()-->
+        <tr>
+          <td><a href="/authors/$author.getId()">$author.getName()</a></td>
+          <td>
+            #foreach($book in $author.getBooks())
+              <ul>
+                <li>$book.getTitle()</li>
+              </ul>
+            #end
+          </td>
+        </tr>
+        #end
+      </tbody>
+    </table>
+
+<center><a href="/adminhome"</a></center>

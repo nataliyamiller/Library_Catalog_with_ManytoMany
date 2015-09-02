@@ -1,29 +1,29 @@
-<h2>All Students</h2>
+<div class="container">
+  <div class="row">
+  <h1><center>Administrator: Library Catalog</center></h1>
+  <h2>All Books</h2>
 
-  #if($students)
+    <table border="1" class="table table-striped">
+      <th>Title</th>
+      <th>Genre</th>
+      <th>Author(s)</th>
+      <th>Copies</th>
 
-  <table border="1" class="table table-striped">
-      <th>Name</th>
-      <th>Enrollment Date</th>
-      <th>Courses</th>
-      <th>Edit</th>
-    <tbody>
-      #foreach($student in $students) <!--courses calls all courses-->
-      <tr>
-        <td><a href="/students/$student.getId()">$student.getName()</a></td><!--$students rences $student in $students-->
-        <td>$student.getEnrollment()</td>
-        <td>
-          #foreach ($course in $student.getCourses())
-          <ul>
-            <li>$course.getCourseName()</li>
-          </ul>
-          #end</td>
-        <td><a href="/students/$student.getId()/edit">edit</a></td>
-      </tr>
-      #end
-    </tbody>
-  </table>
+      <tbody>
+        #foreach($book in $books) <!--books calls book.all()-->
+        <tr>
+          <td><a href="/books/$book.getId()">$book.getTitle()</a></td>
+          <td>$book.getGenre()</td>
+          <td>
+            #foreach($author in $book.getAuthors())
+              <ul>
+                <li>$author.getName()</li>
+              </ul>
+            #end
+          </td>
+        </tr>
+        #end
+      </tbody>
+    </table>
 
-  #end
-
-  <center><a href="/">Home</a></center>
+<center><a href="/adminhome"</a></center>
